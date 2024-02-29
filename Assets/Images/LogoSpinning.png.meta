@@ -1,9 +1,36 @@
 fileFormatVersion: 2
-guid: 9186dc1084b2f8c4a90b82c33906840b
+guid: 9bb2c19ad82094447bf8b6ac00b2dd60
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1662897505083057610
+    second: LogoSpinning_0
+  - first:
+      213: -5605958758164794846
+    second: LogoSpinning_1
+  - first:
+      213: -2245605718951306614
+    second: LogoSpinning_2
+  - first:
+      213: -718681833610545448
+    second: LogoSpinning_3
+  - first:
+      213: 8034119710928940894
+    second: LogoSpinning_4
+  - first:
+      213: -8879187976584578038
+    second: LogoSpinning_5
+  - first:
+      213: 7661424911805523783
+    second: LogoSpinning_6
+  - first:
+      213: 8469084477905713982
+    second: LogoSpinning_7
+  - first:
+      213: -9080307801726153835
+    second: LogoSpinning_8
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -48,7 +75,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 17
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -94,7 +121,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Server
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,85 +137,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrownBobbing_0
+      name: LogoSpinning_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 25
-        height: 25
+        width: 17
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3b7bad83f070d4340856081c7207c1b0
-      internalID: -85832193
+      spriteID: 63a14af87833ce8e0800000000000000
+      internalID: -1662897505083057610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrownBobbing_1
+      name: LogoSpinning_5
       rect:
         serializedVersion: 2
-        x: 25
+        x: 85
         y: 0
-        width: 25
-        height: 25
+        width: 17
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 429e634279055be4f9bcbe04c0a60096
-      internalID: -1580378092
+      spriteID: 222f81a0632a332b0800000000000000
+      internalID: -5605958758164794846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrownBobbing_2
+      name: LogoSpinning_1
       rect:
         serializedVersion: 2
-        x: 50
+        x: 17
         y: 0
-        width: 25
-        height: 25
+        width: 17
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9765b9c9975d8fe44a55d3b998bc170c
-      internalID: 2030087521
+      spriteID: a8a52501f7106d0e0800000000000000
+      internalID: -2245605718951306614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrownBobbing_3
+      name: LogoSpinning_2
       rect:
         serializedVersion: 2
-        x: 75
+        x: 34
         y: 0
-        width: 25
-        height: 25
+        width: 17
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d34fd3044e413df448ea1ef78d015264
-      internalID: -1427071519
+      spriteID: e5f22ec7f4dee7f60800000000000000
+      internalID: 8034119710928940894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LogoSpinning_3
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7472f758d59d25a60800000000000000
+      internalID: 7661424911805523783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LogoSpinning_4
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59b87e2f9244cf180800000000000000
+      internalID: -9080307801726153835
       vertices: []
       indices: 
       edges: []
@@ -196,7 +265,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: ecddd189da30f4a41b6f733ac57acd70
     internalID: 0
     vertices: []
     indices: 
@@ -204,10 +273,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CrownBobbing_0: -85832193
-      CrownBobbing_1: -1580378092
-      CrownBobbing_2: 2030087521
-      CrownBobbing_3: -1427071519
+      LogoSpinning_0: -1662897505083057610
+      LogoSpinning_1: -2245605718951306614
+      LogoSpinning_2: 8034119710928940894
+      LogoSpinning_3: 7661424911805523783
+      LogoSpinning_4: -9080307801726153835
+      LogoSpinning_5: -5605958758164794846
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

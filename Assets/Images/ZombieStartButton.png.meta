@@ -169,7 +169,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ZombieStartButton_0: 3752875311967874132
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

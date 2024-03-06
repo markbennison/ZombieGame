@@ -96,7 +96,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Attack()
     {
-        animator.SetTrigger("OnAttack");
+        if (IsAnimationPlaying(ENEMYATTACK))
+        {
+            animator.SetTrigger("OnAttack");
+        }
     }
 
     void Chase()

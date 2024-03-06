@@ -10,21 +10,40 @@ public class EnemyBehaviour : MonoBehaviour
     public float moveSpeed = 4f;
 
     GameObject player;
+    Rigidbody2D rb;
+    SpriteRenderer sr;
+
     float playerSeenDirection = 0f;
     float playerSeenCounter = 0f;
     float playerSeenCooldownTotal = 5f;
-    Vector3 translateValue;
+
+    Animator animator;
+    const string ANIM_FLOAT_SPEED = "Speed";
+    const string ANIM_TRIG_ONATTACK = "OnAttack";
+
+    string animationState;
+    const string ENEMYIDLE = "EnemyIdle";
+    const string ENEMYWALK = "EnemyWalk";
+    const string ENEMYATTACK = "EnemyAttack";
+
+    float animationSpeed;
+
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+
         player = GameObject.FindGameObjectWithTag("Player");
-        translateValue = new Vector3(moveSpeed, 0, 0);
     }
 
     void Update()
     {
         Debug.Log(CheckPlayerSameLevel());
         BehaviourOptions();
+
+        AnimationSettings();
     }
 
     void BehaviourOptions()
@@ -39,6 +58,7 @@ public class EnemyBehaviour : MonoBehaviour
         else if (CheckPlayerSameLevel() && TargetInAttackRange())
         {
             Debug.Log("ATTACK");
+            Attack();
         }
         else if (playerSeenCounter > 0 && playerSeenDirection != 0)
         {
@@ -48,25 +68,35 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             Debug.Log("IDLE");
-            
+            Idle();
         }
 
 
 
     }
 
+
+    void Idle()
+    {
+
+    }
+
     void Move()
     {
-        //Vector3 movementVector = translateValue * TargetDirectionNormalised();
-        //transform.position = Vector3.Lerp(transform.position, movementVector, Time.deltaTime);
-
-
-        transform.Translate(translateValue * Mathf.Lerp(0f, TargetDirectionNormalised(), Time.deltaTime));
+        rb.velocity = new Vector2(moveSpeed * TargetDirectionNormalised(), rb.velocity.y);
+        if (rb.velocity.x > 0)
+        {
+            sr.flipX = false;
+        }
+        if (rb.velocity.x < 0)
+        {
+            sr.flipX = true;
+        }
     }
 
     void Attack()
     {
-        
+        animator.SetTrigger("OnAttack");
     }
 
     void Chase()
@@ -101,15 +131,15 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool CheckPlayerSameLevel()
     {
-        float verticalDifference = transform.position.y - player.transform.position.y;
-        //Debug.Log("vd: " + verticalDifference);
+        float verticalDifference = player.transform.position.y - transform.position.y;
+        Debug.Log("vd: " + verticalDifference);
 
-        if (verticalDifference > 2)
+        if (verticalDifference > 4)
         {
             return false;
         }
 
-        if (verticalDifference < -5)
+        if (verticalDifference < -4)
         {
             return false;
         }
@@ -158,13 +188,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     float TargetDirectionNormalised()
     {
-        float horizontalDistance = player.transform.position.x - transform.position.x;
-
-        if (horizontalDistance < 0)
+        if (playerSeenDirection < 0)
         {
             return -1f;
         }
-        else if (horizontalDistance > 0)
+        else if (playerSeenDirection > 0)
         {
             return 1f;
         }
@@ -172,4 +200,49 @@ public class EnemyBehaviour : MonoBehaviour
         return 0f;
     }
 
+    void AnimationSettings()
+    {
+        float relativeSpeed = rb.velocity.x;
+        if (relativeSpeed < 0)
+        {
+            relativeSpeed *= -1;
+        }
+
+
+        if (relativeSpeed >= 0.1f) // walk
+        {
+            animationSpeed = 1f;
+        }
+        else //idle
+        {
+            animationSpeed = 0f;
+        }
+
+        animator.SetFloat(ANIM_FLOAT_SPEED, animationSpeed);
+
+    }
+
+
+    void ChangeAnimationState(string newState)
+    {
+        if (newState == animationState)
+        {
+            return;
+        }
+        animator.Play(newState);
+        animationState = newState;
+    }
+
+    bool IsAnimationPlaying(string stateName)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

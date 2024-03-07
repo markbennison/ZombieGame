@@ -17,9 +17,13 @@ public class EnemyBehaviour : MonoBehaviour
     float playerSeenCounter = 0f;
     float playerSeenCooldownTotal = 5f;
 
+    bool attacking = false;
+    float attackCounter = 0f;
+    float attackCooldownTotal = 0.8f;
+
     Animator animator;
     const string ANIM_FLOAT_SPEED = "Speed";
-    const string ANIM_TRIG_ONATTACK = "OnAttack";
+    const string ANIM_BOOL_ATTACKING = "Attacking";
 
     string animationState;
     const string ENEMYIDLE = "EnemyIdle";
@@ -27,8 +31,6 @@ public class EnemyBehaviour : MonoBehaviour
     const string ENEMYATTACK = "EnemyAttack";
 
     float animationSpeed;
-    bool tempSwitch = false;
-
 
     void Start()
     {
@@ -53,27 +55,35 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (CheckPlayerSameLevel() && TargetInChaseRange() && !TargetInAttackRange())
         {
-            Debug.Log("CHASE");
+            //Debug.Log("CHASE");
             Chase();
         }
-        else if (CheckPlayerSameLevel() && TargetInAttackRange())
+        else if (CheckPlayerSameLevel() && TargetInAttackRange() && attackCounter == 0f)
         {
-            Debug.Log("ATTACK");
+            //Debug.Log("ATTACK");
             Attack();
         }
         else if (playerSeenCounter > 0 && playerSeenDirection != 0)
         {
-            Debug.Log("SEARCH");
+            //Debug.Log("SEARCH");
             Search();
         }
         else
         {
-            Debug.Log("IDLE");
+            //Debug.Log("IDLE");
             Idle();
         }
 
-
-
+        animator.SetBool(ANIM_BOOL_ATTACKING, attacking);
+        if (attacking)
+        {
+            attackCounter++;
+            if (attackCounter >= attackCooldownTotal)
+            {
+                attackCounter = 0;
+                attacking = false;
+            }
+        }
     }
 
 
@@ -96,17 +106,17 @@ public class EnemyBehaviour : MonoBehaviour
     }
     void Attack()
     {
-        //if (!IsAnimationPlaying(ANIM_TRIG_ONATTACK))
-        //{
-        //    animator.SetTrigger(ANIM_TRIG_ONATTACK);
-        //}
-        if (!tempSwitch)
-        {
-            Debug.Log("SWITCH");
-            animator.SetTrigger(ANIM_TRIG_ONATTACK);
-            tempSwitch = true;
-        }
+        attacking = true;
+        Invoke("CheckHit", 1f);
+    }
 
+    void CheckHit()
+    {
+        if (CheckPlayerSameLevel() && TargetInAttackRange())
+        {
+            Debug.Log("HIT");
+            player.SendMessageUpwards("Hit", 1f);
+        }
     }
 
     void Chase()
@@ -142,7 +152,7 @@ public class EnemyBehaviour : MonoBehaviour
     bool CheckPlayerSameLevel()
     {
         float verticalDifference = player.transform.position.y - transform.position.y;
-        Debug.Log("vd: " + verticalDifference);
+        //Debug.Log("vd: " + verticalDifference);
 
         if (verticalDifference > 4)
         {
@@ -233,28 +243,4 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-    void ChangeAnimationState(string newState)
-    {
-        if (newState == animationState)
-        {
-            return;
-        }
-        animator.Play(newState);
-        animationState = newState;
-    }
-
-    bool IsAnimationPlaying(string stateName)
-    {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-        {
-            Debug.Log("true");
-            return true;
-        }
-        else
-        {
-            Debug.Log("false");
-            return false;
-        }
-    }
 }

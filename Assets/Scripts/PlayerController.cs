@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
 		animator = GetComponent<Animator>();
 
 		SetMoveSpeed(runSpeed);
+
 	}
 
 	void Update()

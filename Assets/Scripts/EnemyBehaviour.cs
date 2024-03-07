@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float sightRange = 8f;
     public float moveSpeed = 4f;
+    float attackRange = 2f;
 
     GameObject player;
     Rigidbody2D rb;
@@ -77,7 +78,7 @@ public class EnemyBehaviour : MonoBehaviour
         animator.SetBool(ANIM_BOOL_ATTACKING, attacking);
         if (attacking)
         {
-            attackCounter++;
+            attackCounter += Time.deltaTime;
             if (attackCounter >= attackCooldownTotal)
             {
                 attackCounter = 0;
@@ -107,15 +108,16 @@ public class EnemyBehaviour : MonoBehaviour
     void Attack()
     {
         attacking = true;
-        Invoke("CheckHit", 1f);
+        Invoke("CheckHit", 0.5f);
     }
 
     void CheckHit()
     {
+        Debug.Log("CHECK");
         if (CheckPlayerSameLevel() && TargetInAttackRange())
         {
             Debug.Log("HIT");
-            player.SendMessageUpwards("Hit", 1f);
+            player.SendMessageUpwards("Hit", 10f);
         }
     }
 
@@ -170,7 +172,7 @@ public class EnemyBehaviour : MonoBehaviour
     bool TargetInAttackRange()
     {
         float temporaryRange = TargetDirectionAndDistance();
-        float attackRange = 2f;
+
         if (temporaryRange < 0)
         {
             temporaryRange *= -1;

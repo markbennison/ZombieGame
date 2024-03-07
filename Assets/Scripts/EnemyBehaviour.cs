@@ -27,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     const string ENEMYATTACK = "EnemyAttack";
 
     float animationSpeed;
+    bool tempSwitch = false;
 
 
     void Start()
@@ -40,7 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(CheckPlayerSameLevel());
+        //Debug.Log(CheckPlayerSameLevel());
         BehaviourOptions();
 
         AnimationSettings();
@@ -93,13 +94,19 @@ public class EnemyBehaviour : MonoBehaviour
             sr.flipX = true;
         }
     }
-
     void Attack()
     {
-        if (IsAnimationPlaying(ENEMYATTACK))
+        //if (!IsAnimationPlaying(ANIM_TRIG_ONATTACK))
+        //{
+        //    animator.SetTrigger(ANIM_TRIG_ONATTACK);
+        //}
+        if (!tempSwitch)
         {
-            animator.SetTrigger("OnAttack");
+            Debug.Log("SWITCH");
+            animator.SetTrigger(ANIM_TRIG_ONATTACK);
+            tempSwitch = true;
         }
+
     }
 
     void Chase()
@@ -241,10 +248,12 @@ public class EnemyBehaviour : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
+            Debug.Log("true");
             return true;
         }
         else
         {
+            Debug.Log("false");
             return false;
         }
     }

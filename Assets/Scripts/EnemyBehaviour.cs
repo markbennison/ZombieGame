@@ -59,7 +59,8 @@ public class EnemyBehaviour : MonoBehaviour
             //Debug.Log("CHASE");
             Chase();
         }
-        else if (CheckPlayerSameLevel() && TargetInAttackRange() && attackCounter == 0f)
+        
+        if (CheckPlayerSameLevel() && TargetInAttackRange() && attackCounter == 0f)
         {
             //Debug.Log("ATTACK");
             Attack();

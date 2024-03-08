@@ -9,9 +9,13 @@ public class PlayerController : MonoBehaviour
 	// private variables
 	Rigidbody2D rb;
 	SpriteRenderer sr;
+	GameObject attackZone;
 
 	float moveSpeed;
 	bool running;
+
+	float attackCooldownTimer = 0f;
+	float attackCooldownTarget = 0.3f;
 
 	Animator animator;
 	const string ANIM_FLOAT_SPEED = "Speed";
@@ -47,7 +51,9 @@ public class PlayerController : MonoBehaviour
 		animator = GetComponent<Animator>();
 
 		SetMoveSpeed(runSpeed);
-
+		attackZone = gameObject.transform.GetChild(0).gameObject;
+		attackZone.SetActive(false);
+		attackCooldownTimer = attackCooldownTarget;
 	}
 
 	void Update()
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour
 		RunningCheck();
 		Moving();
 		Jumping();
-
+		Attacking();
 		AnimationSettings();
 	}
 
@@ -94,10 +100,12 @@ public class PlayerController : MonoBehaviour
 		if (rb.velocity.x > 0)
 		{
 			sr.flipX = false;
+			attackZone.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
 		}
 		if (rb.velocity.x < 0)
 		{
 			sr.flipX = true;
+			attackZone.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 180f, 0f));
 		}
 	}
 
@@ -120,6 +128,24 @@ public class PlayerController : MonoBehaviour
 			rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 			animator.SetTrigger(ANIM_TRIG_ONJUMP);
 		}
+	}
+
+	void Attacking()
+	{
+		attackCooldownTimer += Time.deltaTime;
+
+		if (attackCooldownTimer >= attackCooldownTarget)
+		{
+			attackCooldownTimer = attackCooldownTarget;
+
+			if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButton(0))
+			{
+				attackCooldownTimer = 0f;
+				attackZone.SetActive(true);
+				animator.SetTrigger(ANIM_TRIG_ONATTACK);
+			}
+		}
+		
 	}
 
 	void SetMoveSpeed(float speed)

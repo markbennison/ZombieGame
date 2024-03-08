@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitManager : MonoBehaviour
 {
     [SerializeField]
-    float hitPoints = 25;
+    float hitPoints = 15;
 
     void Hit(float rawDamage)
     {
@@ -18,6 +18,7 @@ public class HitManager : MonoBehaviour
 
     void SelfTerminate()
     {
-        Destroy(gameObject);
+        Spawner.NumberSpawned--;
+		Destroy(gameObject);
     }
 }

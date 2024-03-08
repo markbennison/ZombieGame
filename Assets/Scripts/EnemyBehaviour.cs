@@ -109,15 +109,13 @@ public class EnemyBehaviour : MonoBehaviour
     void Attack()
     {
         attacking = true;
-        Invoke("CheckHit", 0.5f);
+        Invoke("CheckHit", 0.3f);
     }
 
     void CheckHit()
     {
-        Debug.Log("CHECK");
         if (CheckPlayerSameLevel() && TargetInAttackRange())
         {
-            Debug.Log("HIT");
             player.SendMessageUpwards("Hit", 10f);
         }
     }

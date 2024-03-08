@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
-        UIManager = GetComponent<UIManager>();
+		UIManager = GetComponent<UIManager>();
 		backgroundMusic = GetComponent<AudioSource>();
 		//HighScoreSystem = GetComponent<HighScoreSystem>();
 	}
@@ -62,10 +62,12 @@ public class GameManager : MonoBehaviour
     public static void ResetGame()
     {
         ResetScore();
-        backgroundMusic.Play();
+		backgroundMusic.Play();
 		secondsTimer = countdownTimerDefault;
 		Time.timeScale = 1f;
-    }
+		//Instance.UIManager.Reset();
+
+	}
 
     private static void ResetScore()
     {
@@ -78,6 +80,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 		backgroundMusic.Stop();
 		Instance.UIManager.ActivateEndGame(score);
-        //HighScoreSystem.CheckHighScore("Anon", score);
-    }
+		//HighScoreSystem.CheckHighScore("Anon", score);
+	}
+
+
 }

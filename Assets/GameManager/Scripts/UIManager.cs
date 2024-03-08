@@ -9,14 +9,46 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject gameOverPanel;
 	[SerializeField] TextMeshProUGUI endScoreValue;
 
-
-
 	int score = 0;
 
 	void Start()
 	{
 		UpdateScoreUI(0);
 		UpdateTimeUI(0);
+	}
+
+	bool TrySetField(string objectName, ref TextMeshProUGUI field)
+	{
+		if(field != null)
+		{
+			return true;
+		}
+
+		field = GameObject.Find(objectName).GetComponent<TextMeshProUGUI>();
+
+		if (field != null)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool TrySetField(string objectName, ref GameObject field)
+	{
+		if (field != null)
+		{
+			return true;
+		}
+
+		field = GameObject.Find(objectName);
+
+		if (field != null)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	public void UpdateScoreUI(int value)
@@ -36,6 +68,15 @@ public class UIManager : MonoBehaviour
 		endScoreValue.text = score.ToString();
 		gameOverPanel.SetActive(true);
 		Cursor.visible = true;
+	}
+
+	public void Reset()
+	{
+		Debug.Log("RESET UI");
+		Debug.Log("1" + TrySetField("Score", ref scoreValue));
+		Debug.Log("2" + TrySetField("Time", ref timeValue));
+		Debug.Log("3" + TrySetField("GameOverPanel", ref gameOverPanel));
+		Debug.Log("4" + TrySetField("ScoreValue", ref endScoreValue));
 	}
 
 }

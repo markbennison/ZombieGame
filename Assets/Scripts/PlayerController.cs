@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
 	void Jumping()
 	{
-		if (Input.GetButtonDown("Jump") && isGrounded)
+		if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetMouseButton(1)) && isGrounded)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 			animator.SetTrigger(ANIM_TRIG_ONJUMP);
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
 		{
 			attackCooldownTimer = attackCooldownTarget;
 
-			if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButton(0))
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.F))
 			{
 				attackCooldownTimer = 0f;
 				attackZone.SetActive(true);

@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
 	static AudioSource backgroundMusic;
 
 	private static float countdownTimerDefault = 121;
-	private static float secondsTimer = countdownTimerDefault;
-    private static int score;
+	//private static float secondsTimer = countdownTimerDefault;
+	private static float secondsTimer = 0;
+	private static int score;
 
     void Awake()
     {
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
 
 	void Update()
     {
-		secondsTimer -= Time.deltaTime;
+		secondsTimer += Time.deltaTime;
         Instance.UIManager.UpdateTimeUI(secondsTimer);
         if(secondsTimer <= 0)
         {
@@ -63,7 +64,8 @@ public class GameManager : MonoBehaviour
     {
         ResetScore();
 		backgroundMusic.Play();
-		secondsTimer = countdownTimerDefault;
+		//secondsTimer = countdownTimerDefault;
+		secondsTimer = 0;
 		Time.timeScale = 1f;
 		//Instance.UIManager.Reset();
 
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 		backgroundMusic.Stop();
-		Instance.UIManager.ActivateEndGame(score);
+		Instance.UIManager.ActivateEndGame(secondsTimer);
 		//HighScoreSystem.CheckHighScore("Anon", score);
 	}
 

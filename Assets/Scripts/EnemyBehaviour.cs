@@ -8,7 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float sightRange = 8f;
     public float moveSpeed = 4f;
-    float attackRange = 2f;
+	public float attackRange = 2f;
 
     GameObject player;
     Rigidbody2D rb;
@@ -25,11 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
     Animator animator;
     const string ANIM_FLOAT_SPEED = "Speed";
     const string ANIM_BOOL_ATTACKING = "Attacking";
-
-    string animationState;
-    const string ENEMYIDLE = "EnemyIdle";
-    const string ENEMYWALK = "EnemyWalk";
-    const string ENEMYATTACK = "EnemyAttack";
 
     float animationSpeed;
 
@@ -53,19 +48,18 @@ public class EnemyBehaviour : MonoBehaviour
     void BehaviourOptions()
     {
         SeenCountdown();
-
-        if (CheckPlayerSameLevel() && TargetInChaseRange() && !TargetInAttackRange())
-        {
-            //Debug.Log("CHASE");
-            Chase();
-        }
         
         if (CheckPlayerSameLevel() && TargetInAttackRange() && attackCounter == 0f)
         {
             //Debug.Log("ATTACK");
             Attack();
         }
-        else if (playerSeenCounter > 0 && playerSeenDirection != 0)
+		else if (CheckPlayerSameLevel() && TargetInChaseRange())
+		{
+			//Debug.Log("CHASE");
+			Chase();
+		}
+		else if (playerSeenCounter > 0 && playerSeenDirection != 0)
         {
             //Debug.Log("SEARCH");
             Search();

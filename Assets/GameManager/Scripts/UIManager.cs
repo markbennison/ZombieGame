@@ -70,6 +70,13 @@ public class UIManager : MonoBehaviour
 		Cursor.visible = true;
 	}
 
+	public void ActivateEndGame(float time)
+	{
+		endScoreValue.text = System.TimeSpan.FromSeconds(time).ToString("mm':'ss");
+		gameOverPanel.SetActive(true);
+		Cursor.visible = true;
+	}
+
 	public void Reset()
 	{
 		Debug.Log("RESET UI");

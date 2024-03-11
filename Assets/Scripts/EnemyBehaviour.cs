@@ -1,33 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.IntegerTime;
+
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyBehaviour : EnemyController
 {
 
     protected override void BehaviourOptions()
     {
-        if (IsPlayerSameLevel() && IsTargetInAttackRange() && !IsMidAttack())
+        if (   )
         {
-            //Debug.Log("ATTACK");
-            Attack();
+
         }
-        else if (IsPlayerSameLevel() && IsTargetInChaseRange())
+        else if (   )
         {
-            //Debug.Log("CHASE");
-            Chase();
+
         }
-        else if (IsPlayerSeenRecently())
+        else if (   )
         {
-            //Debug.Log("SEARCH");
-            Search();
+
         }
         else
         {
-            //Debug.Log("IDLE");
-            Idle();
+
         }
     }
 

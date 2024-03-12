@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
 	float animationSpeed;
 	bool isGrounded;
 	bool isCrouched;
-	bool CanMove;
 
 	void Start()
 	{
@@ -59,16 +58,12 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		CanMove = gameObject.GetComponent<HealthManager>().PlayerAlive;
-		if (CanMove)
-		{
-            GroundedCheck();
-            RunningCheck();
-            Moving();
-            Jumping();
-            Attacking();
-            AnimationSettings();
-        }
+		GroundedCheck();
+		RunningCheck();
+		Moving();
+		Jumping();
+		Attacking();
+		AnimationSettings();
 	}
 
 	void GroundedCheck()
@@ -128,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
 	void Jumping()
 	{
-		if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetMouseButton(1)) && isGrounded)
+		if (Input.GetButtonDown("Jump") && isGrounded)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 			animator.SetTrigger(ANIM_TRIG_ONJUMP);
@@ -143,7 +138,7 @@ public class PlayerController : MonoBehaviour
 		{
 			attackCooldownTimer = attackCooldownTarget;
 
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.F))
+			if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButton(0))
 			{
 				attackCooldownTimer = 0f;
 				attackZone.SetActive(true);

@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 	float animationSpeed;
 	bool isGrounded;
 	bool isCrouched;
+	bool CanMove;
 
 	void Start()
 	{
@@ -58,12 +59,16 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		GroundedCheck();
-		RunningCheck();
-		Moving();
-		Jumping();
-		Attacking();
-		AnimationSettings();
+		CanMove = gameObject.GetComponent<HealthManager>().PlayerAlive;
+		if (CanMove)
+		{
+            GroundedCheck();
+            RunningCheck();
+            Moving();
+            Jumping();
+            Attacking();
+            AnimationSettings();
+        }
 	}
 
 	void GroundedCheck()

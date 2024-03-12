@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 	protected float playerSeenCooldownTotal = 5f;
 
 	protected bool attacking = false;
+	protected bool canAttackPlayer;
 	protected float attackCounter = 0f;
 	protected float attackCooldownTotal = 0.8f;
 
@@ -40,7 +41,10 @@ public class EnemyController : MonoBehaviour
 	protected void Update()
 	{
 		//Debug.Log(CheckPlayerSameLevel());
-		Behaviour();
+
+		canAttackPlayer = player.GetComponent<HealthManager>().PlayerAlive;
+
+        Behaviour();
 
 		AnimationSettings();
 	}

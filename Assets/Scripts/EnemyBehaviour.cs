@@ -3,24 +3,27 @@ using UnityEngine;
 
 public class EnemyBehaviour : EnemyController
 {
-
     protected override void BehaviourOptions()
     {
-        if (   )
+        if (IsPlayerSameLevel() && IsTargetInAttackRange() && !IsMidAttack() && canAttackPlayer)
         {
-
+            //Debug.Log("ATTACK");
+            Attack();
         }
-        else if (   )
+        else if (IsPlayerSameLevel() && IsTargetInChaseRange())
         {
-
+            //Debug.Log("CHASE");
+            Chase();
         }
-        else if (   )
+        else if (IsPlayerSeenRecently())
         {
-
+            //Debug.Log("SEARCH");
+            Search();
         }
         else
         {
-
+            //Debug.Log("IDLE");
+            Idle();
         }
     }
 

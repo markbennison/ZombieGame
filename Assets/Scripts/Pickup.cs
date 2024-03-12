@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-
-    }
+    [SerializeField] private float HealAmount = 25f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.gameObject.CompareTag("Player") && !collision.gameObject.GetComponent<HealthManager>().MaxHP)
         {
-            GameManager.IncrementScore(1);
-            Destroy(this.gameObject);
+            collision.gameObject.GetComponent<HealthManager>().Heal(HealAmount);
+            Destroy(gameObject);
         }
     }
+
 }

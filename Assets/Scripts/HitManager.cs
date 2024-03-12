@@ -18,6 +18,12 @@ public class HitManager : MonoBehaviour
 
     void SelfTerminate()
     {
+        GameObject GetSManager = GameObject.FindWithTag("UIManager").gameObject;
+        if (GetSManager != null)
+        {
+            GetSManager.TryGetComponent<UIManager>(out UIManager manager);
+            manager.UpdateScore();
+        }
         Spawner.NumberSpawned--;
 		Destroy(gameObject);
     }

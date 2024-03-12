@@ -6,27 +6,49 @@ using UnityEngine.UI;
 public class HealthManager : MonoBehaviour
 {
 	[SerializeField] float maxHitPoints = 100f;
+	[SerializeField] private GameObject StatsUI;
+	[SerializeField] private GameObject DeathUI;
 	float hitPoints;
 
 	public Slider healthSlider;
+	private Animator animator;
+	public bool PlayerAlive;
+	public bool MaxHP;
 
 	void Start()
 	{
 		hitPoints = maxHitPoints;
-	}
+		animator = GetComponent<Animator>();
+        PlayerAlive = true;
+    }
 
+    private void Update()
+    {
+        if(hitPoints >= maxHitPoints)
+		{
+			hitPoints = maxHitPoints;
+			MaxHP = true;
+		}
+		else
+		{
+			MaxHP = false;
+		}
 
-	void Hit(float rawDamage)
+		SetHealthSlider();
+
+    }
+
+    void Hit(float rawDamage)
 	{
 		hitPoints -= rawDamage;
-		SetHealthSlider();
 
 		Debug.Log("OUCH: " + hitPoints.ToString());
 		AudioManager.instance.PlayAtPoint("PlayerGrunt", Camera.main.gameObject);
 
 		if (hitPoints <= 0)
 		{
-			Debug.Log("TODO: GAME OVER - YOU DIED");
+            
+            Debug.Log("TODO: GAME OVER - YOU DIED");
 			OnDeath();
 		}
 	}
@@ -44,8 +66,17 @@ public class HealthManager : MonoBehaviour
 		return hitPoints / maxHitPoints;
 	}
 
-	void OnDeath()
+    void OnDeath()
 	{
-		GameManager.Instance.GameOver();
-	}
+        PlayerAlive = false;
+        animator.SetTrigger("OnDeath");
+        StatsUI.SetActive(false);
+        DeathUI.SetActive(true);
+    }
+
+	public void Heal(float amount)
+	{
+        hitPoints += amount;
+    }
+
 }

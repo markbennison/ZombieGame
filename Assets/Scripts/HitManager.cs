@@ -19,6 +19,7 @@ public class HitManager : MonoBehaviour
     void SelfTerminate()
     {
         Spawner.NumberSpawned--;
+        GameManager.IncrementScore(1);
 		Destroy(gameObject);
     }
 }

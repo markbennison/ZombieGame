@@ -85,5 +85,6 @@ public class GameManager : MonoBehaviour
 		//HighScoreSystem.CheckHighScore("Anon", score);
 	}
 
+    
 
 }

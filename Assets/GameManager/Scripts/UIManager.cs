@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 	public void UpdateScoreUI(int value)
 	{
 		// "D5" - minimum of 5 digits, preceding shorter numbers with 0s
-		scoreValue.text = value.ToString("D2");
+		scoreValue.text = value.ToString("D3");
 	}
 
 	public void UpdateTimeUI(float time)

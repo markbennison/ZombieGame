@@ -38,10 +38,17 @@ public class EnemyController : MonoBehaviour
 	}
 
 	protected void Update()
-	{
-		//Debug.Log(CheckPlayerSameLevel());
-		Behaviour();
-
+    {
+		if (!player.GetComponent<HealthManager>().IsDead())
+		{
+			//Debug.Log(CheckPlayerSameLevel());
+			Behaviour();
+		}
+		else
+		{
+			attacking = false;
+            animator.SetBool(ANIM_BOOL_ATTACKING, attacking);
+        }
 		AnimationSettings();
 	}
 

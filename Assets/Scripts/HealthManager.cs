@@ -10,16 +10,25 @@ public class HealthManager : MonoBehaviour
 
 	public Slider healthSlider;
 
-	void Start()
+
+    Animator animator;
+    const string ANIM_TRIG_ONDEATH = "OnDeath";
+    const string ANIM_TRIG_ONHIT = "OnHit";
+
+    void Start()
 	{
 		hitPoints = maxHitPoints;
-	}
+        Debug.Log("OUCH: " + hitPoints.ToString());
+        animator = GetComponent<Animator>();
+    }
 
 
-	void Hit(float rawDamage)
+    void Hit(float rawDamage)
 	{
 		hitPoints -= rawDamage;
 		SetHealthSlider();
+
+
 
 		Debug.Log("OUCH: " + hitPoints.ToString());
 		AudioManager.instance.PlayAtPoint("PlayerGrunt", Camera.main.gameObject);
@@ -39,6 +48,15 @@ public class HealthManager : MonoBehaviour
 		}
 	}
 
+	public bool IsDead()
+	{
+		if (hitPoints <= 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	float NormalisedHitPoint()
 	{
 		return hitPoints / maxHitPoints;
@@ -46,6 +64,13 @@ public class HealthManager : MonoBehaviour
 
 	void OnDeath()
 	{
-		GameManager.Instance.GameOver();
+        animator.SetTrigger(ANIM_TRIG_ONDEATH);
+		Invoke("CallGameOver", 2f);
 	}
+
+	void CallGameOver()
+	{
+		GameManager.Instance.GameOver();
+
+    }
 }

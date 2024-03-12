@@ -6,22 +6,22 @@ public class EnemyBehaviour : EnemyController
 
     protected override void BehaviourOptions()
     {
-        //if (   )
-        //{
 
-        //}
-        //else if (   )
-        //{
 
-        //}
-        //else if (   )
-        //{
 
-        //}
-        //else
-        //{
 
-        //}
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 	void Idle()

@@ -101,10 +101,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3170382850150542215}
   - component: {fileID: 2067100415277934258}
+  - component: {fileID: 6376498136906506144}
   - component: {fileID: 6041085664779701408}
   - component: {fileID: 5768344954579662939}
   - component: {fileID: 8357493369023560959}
-  - component: {fileID: 6376498136906506144}
   - component: {fileID: 770373157949967234}
   m_Layer: 0
   m_Name: Player
@@ -144,6 +144,20 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   jumpForce: 10
+--- !u!114 &6376498136906506144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308058517615453704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef0524b3845d4541844cd0989bab2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 100
+  healthSlider: {fileID: 0}
 --- !u!212 &6041085664779701408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -262,20 +276,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 1.2}
   m_Direction: 0
---- !u!114 &6376498136906506144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5308058517615453704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef0524b3845d4541844cd0989bab2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHitPoints: 100
-  healthSlider: {fileID: 0}
 --- !u!95 &770373157949967234
 Animator:
   serializedVersion: 7

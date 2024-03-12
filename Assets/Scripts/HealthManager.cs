@@ -18,7 +18,6 @@ public class HealthManager : MonoBehaviour
     void Start()
 	{
 		hitPoints = maxHitPoints;
-        Debug.Log("OUCH: " + hitPoints.ToString());
         animator = GetComponent<Animator>();
     }
 

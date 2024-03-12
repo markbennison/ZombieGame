@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 public class StartGame : MonoBehaviour
 {
 	float countdownTimer = 1.5f;
-	[SerializeField] GameObject titleObject;
 
 	private void Start()
 	{
-		titleObject.SetActive(false);
-	}
+        GameManager.Instance.UIManager.HideTitle();
+        GameManager.SetupMainMenu();
+
+    }
+
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
@@ -24,13 +26,12 @@ public class StartGame : MonoBehaviour
 		if(countdownTimer < 0)
 		{
 			countdownTimer = 0;
-			titleObject.SetActive(true);
+			GameManager.Instance.UIManager.ShowTitle();
 		}
 	}
 
 	public void StartButton()
 	{
-		Cursor.visible = false;
-		SceneManager.LoadScene("Level");
+		GameManager.LoadLevel();
 	}
 }

@@ -15,8 +15,13 @@ public class EndGame : MonoBehaviour
 
 	public void ExitButton()
 	{
-		Debug.Log("Application Quits");
-		Application.Quit();
+		//Debug.Log("Application Quits");
+		//Application.Quit();
 		//SceneManager.LoadScene("MainMenu");
+
+		GameManager.LoadMainMenu();
 	}
+
+
+
 }

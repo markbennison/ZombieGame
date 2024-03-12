@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -63,7 +64,8 @@ public class GameManager : MonoBehaviour
     public static void ResetGame()
     {
         ResetScore();
-		backgroundMusic.Play();
+        ResetTime();
+        backgroundMusic.Play();
 		//secondsTimer = countdownTimerDefault;
 		secondsTimer = 0;
 		Time.timeScale = 1f;
@@ -77,6 +79,12 @@ public class GameManager : MonoBehaviour
         Instance.UIManager.UpdateScoreUI(score);
     }
 
+    private static void ResetTime()
+    {
+        secondsTimer = 0;
+        Instance.UIManager.UpdateTimeUI(secondsTimer);
+    }
+
     public void GameOver()
     {
         Time.timeScale = 0f;
@@ -85,6 +93,32 @@ public class GameManager : MonoBehaviour
 		//HighScoreSystem.CheckHighScore("Anon", score);
 	}
 
-    
+    public static void LoadMainMenu()
+    {
+        Cursor.visible = true;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public static void LoadLevel()
+    {
+        Cursor.visible = false;
+        SceneManager.LoadScene("Level");
+    }
+
+    public static void SetupMainMenu()
+    {
+        Instance.UIManager.HidePanel();
+        Instance.UIManager.HideGameOver();
+
+
+    }
+
+    public static void SetupLevel()
+    {
+        Instance.UIManager.ShowPanel();
+        Instance.UIManager.HideTitle();
+        Instance.UIManager.HideGameOver();
+        ResetGame();
+    }
 
 }

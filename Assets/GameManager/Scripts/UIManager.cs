@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-	[SerializeField] TextMeshProUGUI scoreValue;
+    [SerializeField] GameObject uIPanel;
+    [SerializeField] TextMeshProUGUI scoreValue;
 	[SerializeField] TextMeshProUGUI timeValue;
 	[SerializeField] GameObject gameOverPanel;
 	[SerializeField] TextMeshProUGUI endScoreValue;
+    [SerializeField] GameObject TitleObject;
 
-	int score = 0;
+    int score = 0;
 
 	void Start()
 	{
@@ -85,5 +87,36 @@ public class UIManager : MonoBehaviour
 		Debug.Log("3" + TrySetField("GameOverPanel", ref gameOverPanel));
 		Debug.Log("4" + TrySetField("ScoreValue", ref endScoreValue));
 	}
+
+	public void ShowPanel()
+	{
+		uIPanel.SetActive(true);
+        TitleObject.SetActive(false);
+    }
+
+    public void HidePanel()
+    {
+        uIPanel.SetActive(false);
+    }
+
+    public void ShowTitle()
+	{
+        TitleObject.SetActive(true);
+    }
+
+    public void HideTitle()
+    {
+        TitleObject.SetActive(false);
+    }
+
+	public void ShowGameOver()
+	{
+        gameOverPanel.SetActive(true);
+    }
+
+    public void HideGameOver()
+    {
+        gameOverPanel.SetActive(false);
+    }
 
 }

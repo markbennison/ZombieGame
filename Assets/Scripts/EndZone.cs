@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EndZone : MonoBehaviour
 {
-	void OnTriggerEnter2D(Collider2D collider)
+    private void Start()
+    {
+       GameManager.SetupLevel();
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.tag == "Player")
 		{

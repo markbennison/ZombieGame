@@ -564,7 +564,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 3264506914045540311}
   titleObject: {fileID: 1766169593941768385}
   pausePanel: {fileID: 664993011306893941}
-  pauseOptionsPanel: {fileID: 0}
+  pauseOptionsPanel: {fileID: 664993011692955233}
   healthSlider: {fileID: 6499461257086253079}
 --- !u!114 &7488871105743412082
 MonoBehaviour:
@@ -1581,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7982745412161533978, guid: 18024ad2391ce1e449372e1d05f6fb78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7982745412161533979, guid: 18024ad2391ce1e449372e1d05f6fb78, type: 3}
       propertyPath: m_Pivot.x
@@ -1697,5 +1697,10 @@ GameObject:
 --- !u!224 &664993011692955232 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7982745411775859727, guid: 18024ad2391ce1e449372e1d05f6fb78, type: 3}
+  m_PrefabInstance: {fileID: 7490312148318743151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &664993011692955233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7982745411775859726, guid: 18024ad2391ce1e449372e1d05f6fb78, type: 3}
   m_PrefabInstance: {fileID: 7490312148318743151}
   m_PrefabAsset: {fileID: 0}

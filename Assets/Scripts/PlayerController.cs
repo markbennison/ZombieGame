@@ -59,10 +59,13 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		GroundedCheck();
-		RunningCheck();
-		Moving();
-		Jumping();
-		Attacking();
+		if (!GetComponent<HealthManager>().IsDead())
+		{
+			RunningCheck();
+			Moving();
+			Jumping();
+			Attacking();
+		}
 		AnimationSettings();
 	}
 

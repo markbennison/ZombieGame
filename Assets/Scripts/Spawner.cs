@@ -17,7 +17,9 @@ public class Spawner : MonoBehaviour
 
 	void Start()
     {
-        bool rotate = GetComponent<SpriteRenderer>().flipX;
+        Reset();
+
+		bool rotate = GetComponent<SpriteRenderer>().flipX;
 		GetComponent<SpriteRenderer>().enabled = false;
         Spawn();
 	}
@@ -32,7 +34,12 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
-    void Spawn()
+	public static void Reset()
+	{
+        NumberSpawned = 0;
+	}
+
+	void Spawn()
     {
         if (NumberSpawned < maximumSpawns)
         {

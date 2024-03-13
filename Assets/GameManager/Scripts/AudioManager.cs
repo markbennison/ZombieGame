@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-	public static AudioManager instance;
+	public static AudioManager Instance { get; private set; }
 
 	public AudioMixerGroup mixerGroup;
 
@@ -14,13 +14,13 @@ public class AudioManager : MonoBehaviour
 
 	void Awake()
 	{
-		if (instance != null)
+		if (Instance != null)
 		{
 			Destroy(gameObject);
 		}
 		else
 		{
-			instance = this;
+			Instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
 
@@ -36,6 +36,14 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
+	public void StopAllSound()
+	{
+		foreach (Sound s in sounds)
+		{
+			s.source.Stop();
+		}
+	}
+
 	public void Play(string soundName)
 	{
 		Sound s = SoundtoPlay(soundName);
@@ -43,6 +51,24 @@ public class AudioManager : MonoBehaviour
 		if (s != null)
 		{
 			s.source.Play();
+			
+		}
+	}
+
+	public void PlayBackgroundMusic()
+	{
+		StopAllSound();
+		Camera.main.gameObject.GetComponent<AudioSource>().Play();
+	}
+
+	public void PlayAtPoint(string soundName)
+	{
+		GameObject originator = Camera.main.gameObject;
+		Sound s = SoundtoPlay(soundName);
+
+		if (s != null)
+		{
+			AudioSource.PlayClipAtPoint(s.clip, originator.transform.position, s.volume);
 		}
 	}
 

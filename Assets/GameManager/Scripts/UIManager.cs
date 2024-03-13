@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject gameOverPanel;
 	[SerializeField] TextMeshProUGUI endScoreValue;
     [SerializeField] GameObject TitleObject;
+	[SerializeField] Slider healthSlider;
 
-    int score = 0;
+	int score = 0;
 
 	void Start()
 	{
@@ -53,6 +55,14 @@ public class UIManager : MonoBehaviour
 		return false;
 	}
 
+	public void UpdateHealthSlider(float normalisedHitPoints)
+	{
+		if (healthSlider != null)
+		{
+			healthSlider.value = normalisedHitPoints;
+		}
+	}
+
 	public void UpdateScoreUI(int value)
 	{
 		// "D5" - minimum of 5 digits, preceding shorter numbers with 0s
@@ -88,13 +98,13 @@ public class UIManager : MonoBehaviour
 		Debug.Log("4" + TrySetField("ScoreValue", ref endScoreValue));
 	}
 
-	public void ShowPanel()
+	public void ShowUIPanel()
 	{
 		uIPanel.SetActive(true);
         TitleObject.SetActive(false);
     }
 
-    public void HidePanel()
+    public void HideUIPanel()
     {
         uIPanel.SetActive(false);
     }

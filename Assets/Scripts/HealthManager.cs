@@ -8,9 +8,6 @@ public class HealthManager : MonoBehaviour
 	[SerializeField] float maxHitPoints = 100f;
 	float hitPoints;
 
-	public Slider healthSlider;
-
-
     Animator animator;
     const string ANIM_TRIG_ONDEATH = "OnDeath";
     const string ANIM_TRIG_ONHIT = "OnHit";
@@ -18,32 +15,23 @@ public class HealthManager : MonoBehaviour
     void Start()
 	{
 		hitPoints = maxHitPoints;
-        animator = GetComponent<Animator>();
+		GameManager.Instance.UIManager.UpdateHealthSlider(NormalisedHitPoints());
+		animator = GetComponent<Animator>();
     }
 
 
     void Hit(float rawDamage)
 	{
 		hitPoints -= rawDamage;
-		SetHealthSlider();
-
-
+		GameManager.Instance.UIManager.UpdateHealthSlider(NormalisedHitPoints());
 
 		Debug.Log("OUCH: " + hitPoints.ToString());
-		AudioManager.instance.PlayAtPoint("PlayerGrunt", Camera.main.gameObject);
+		AudioManager.Instance.PlayAtPoint("PlayerGrunt");
 
 		if (hitPoints <= 0)
 		{
 			Debug.Log("TODO: GAME OVER - YOU DIED");
 			OnDeath();
-		}
-	}
-
-	void SetHealthSlider()
-	{
-		if (healthSlider != null)
-		{
-			healthSlider.value = NormalisedHitPoint();
 		}
 	}
 
@@ -56,7 +44,7 @@ public class HealthManager : MonoBehaviour
 		return false;
 	}
 
-	float NormalisedHitPoint()
+	float NormalisedHitPoints()
 	{
 		return hitPoints / maxHitPoints;
 	}

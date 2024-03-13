@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get; private set; }
 	//public HighScoreSystem HighScoreSystem { get; private set; }
 
+	public AudioManager AudioManager { get; private set; }
+
 	static AudioSource backgroundMusic;
 
 	private static float countdownTimerDefault = 121;
@@ -27,15 +29,21 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
 		UIManager = GetComponent<UIManager>();
-		backgroundMusic = GetComponent<AudioSource>();
+        AudioManager = GetComponent<AudioManager>();
 		//HighScoreSystem = GetComponent<HighScoreSystem>();
 	}
 
 	void Start()
 	{
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
-		ResetGame();
+        if(SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            SetupMainMenu();
+		}
+        else if (SceneManager.GetActiveScene().name == "Level")
+		{
+			SetupLevel();
+		}
+        
 	}
 
 	void Update()
@@ -63,8 +71,7 @@ public class GameManager : MonoBehaviour
 
     public static void ResetGame()
     {
-        ResetScore();
-        ResetTime();
+		ResetPlayerUI();
         backgroundMusic.Play();
 		//secondsTimer = countdownTimerDefault;
 		secondsTimer = 0;
@@ -73,52 +80,73 @@ public class GameManager : MonoBehaviour
 
 	}
 
-    private static void ResetScore()
+    private static void ResetPlayerUI()
     {
         score = 0;
         Instance.UIManager.UpdateScoreUI(score);
-    }
 
-    private static void ResetTime()
-    {
-        secondsTimer = 0;
-        Instance.UIManager.UpdateTimeUI(secondsTimer);
-    }
+		secondsTimer = 0;
+		Instance.UIManager.UpdateTimeUI(secondsTimer);
+	}
 
     public void GameOver()
     {
         Time.timeScale = 0f;
-		backgroundMusic.Stop();
+		AudioManager.Instance.StopAllSound();
 		Instance.UIManager.ActivateEndGame(secondsTimer);
 		//HighScoreSystem.CheckHighScore("Anon", score);
 	}
 
     public static void LoadMainMenu()
     {
-        Cursor.visible = true;
-        SceneManager.LoadScene("MainMenu");
+        SetupMainMenu();
+		SceneManager.LoadScene("MainMenu");
     }
 
     public static void LoadLevel()
     {
-        Cursor.visible = false;
-        SceneManager.LoadScene("Level");
+        SetupLevel();
+		SceneManager.LoadScene("Level");
     }
 
     public static void SetupMainMenu()
     {
-        Instance.UIManager.HidePanel();
+		Cursor.visible = true;
+
+		Instance.UIManager.HideUIPanel();
         Instance.UIManager.HideGameOver();
 
+		AudioManager.Instance.PlayBackgroundMusic();
 
-    }
+        Resume();
+	}
 
     public static void SetupLevel()
     {
-        Instance.UIManager.ShowPanel();
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Confined;
+
+		ResetPlayerUI();
+
+		Instance.UIManager.ShowUIPanel();
         Instance.UIManager.HideTitle();
         Instance.UIManager.HideGameOver();
-        ResetGame();
-    }
 
+        //AudioManager.Instance.PlayAtPoint("LevelMusic");
+        AudioManager.Instance.PlayBackgroundMusic();
+		//backgroundMusic.Play();
+
+
+		Resume();
+	}
+
+	public static void Pause()
+	{
+		Time.timeScale = 0f;
+	}
+
+	public static void Resume()
+	{
+		Time.timeScale = 1f;
+	}
 }

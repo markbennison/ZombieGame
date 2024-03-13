@@ -10,7 +10,9 @@ public class HitManager : MonoBehaviour
     void Hit(float rawDamage)
     {
         hitPoints -= rawDamage;
-        if (hitPoints <= 0)
+
+		//AudioManager.Instance.PlayAtPoint("EnemyGrunt");
+		if (hitPoints <= 0)
         {
             Invoke("SelfTerminate", 0f);
         }

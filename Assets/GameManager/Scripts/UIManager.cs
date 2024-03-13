@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject uIPanel;
+
     [SerializeField] TextMeshProUGUI scoreValue;
 	[SerializeField] TextMeshProUGUI timeValue;
-	[SerializeField] GameObject gameOverPanel;
 	[SerializeField] TextMeshProUGUI endScoreValue;
-    [SerializeField] GameObject TitleObject;
+
+	[SerializeField] GameObject uIPanel;
+	[SerializeField] GameObject gameOverPanel;
+	[SerializeField] GameObject titleObject;
+	[SerializeField] GameObject pausePanel;
+	[SerializeField] GameObject pauseOptionsPanel;
+
 	[SerializeField] Slider healthSlider;
+
 
 	int score = 0;
 
@@ -101,7 +107,7 @@ public class UIManager : MonoBehaviour
 	public void ShowUIPanel()
 	{
 		uIPanel.SetActive(true);
-        TitleObject.SetActive(false);
+        titleObject.SetActive(false);
     }
 
     public void HideUIPanel()
@@ -111,13 +117,23 @@ public class UIManager : MonoBehaviour
 
     public void ShowTitle()
 	{
-        TitleObject.SetActive(true);
+        titleObject.SetActive(true);
     }
 
     public void HideTitle()
     {
-        TitleObject.SetActive(false);
+        titleObject.SetActive(false);
     }
+	public void ShowPauseMenu()
+	{
+		pausePanel.SetActive(true);
+	}
+
+	public void HidePauseMenu()
+	{
+		HidePauseOptions();
+		pausePanel.SetActive(false);
+	}
 
 	public void ShowGameOver()
 	{
@@ -129,4 +145,13 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
+	public void ShowPauseOptions()
+	{
+		pauseOptionsPanel.SetActive(true);
+	}
+
+	public void HidePauseOptions()
+	{
+		pauseOptionsPanel.SetActive(false);
+	}
 }

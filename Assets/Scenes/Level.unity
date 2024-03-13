@@ -2249,6 +2249,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 229627266235345670, guid: 4f172dc3772b73149bc940a517e0174a, type: 3}
   m_PrefabInstance: {fileID: 679935610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1573816237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 664993011692955233, guid: 997643fdff730a64da166c5e88207167, type: 3}
+  m_PrefabInstance: {fileID: 2145176697746571761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1764031349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 229627266235345670, guid: 4f172dc3772b73149bc940a517e0174a, type: 3}
@@ -2522,6 +2527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 664993011306893941, guid: 997643fdff730a64da166c5e88207167, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4186319432357100332, guid: 997643fdff730a64da166c5e88207167, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2562,6 +2571,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4697234175967035978, guid: 997643fdff730a64da166c5e88207167, type: 3}
+      propertyPath: pauseOptionsPanel
+      value: 
+      objectReference: {fileID: 1573816237}
     - target: {fileID: 6499461257409173292, guid: 997643fdff730a64da166c5e88207167, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

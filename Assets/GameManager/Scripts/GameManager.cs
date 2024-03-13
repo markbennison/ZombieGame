@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // DESIGN PATTERN: SINGLETON
-    public static GameManager Instance { get; private set; }
-    public UIManager UIManager { get; private set; }
+	// DESIGN PATTERN: SINGLETON
+	public static GameManager Instance { get; private set; }
+	public UIManager UIManager { get; private set; }
 	//public HighScoreSystem HighScoreSystem { get; private set; }
 
 	public AudioManager AudioManager { get; private set; }
+
+	[HideInInspector] public static bool IsGamePaused { get; set; } = false;
 
 	static AudioSource backgroundMusic;
 
@@ -19,45 +21,71 @@ public class GameManager : MonoBehaviour
 	private static float secondsTimer = 0;
 	private static int score;
 
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        Instance = this;
+	void Awake()
+	{
+		if (Instance != null && Instance != this)
+		{
+			Destroy(this);
+			return;
+		}
+		Instance = this;
 
 		UIManager = GetComponent<UIManager>();
-        AudioManager = GetComponent<AudioManager>();
+		AudioManager = GetComponent<AudioManager>();
 		//HighScoreSystem = GetComponent<HighScoreSystem>();
 	}
 
 	void Start()
 	{
-        if(SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            SetupMainMenu();
+		if (SceneManager.GetActiveScene().name == "MainMenu")
+		{
+			SetupMainMenu();
 		}
-        else if (SceneManager.GetActiveScene().name == "Level")
+		else if (SceneManager.GetActiveScene().name == "Level")
 		{
 			SetupLevel();
 		}
-        
+
+		Cursor.lockState = CursorLockMode.Confined;
 	}
 
 	void Update()
-    {
+	{
 		secondsTimer += Time.deltaTime;
-        Instance.UIManager.UpdateTimeUI(secondsTimer);
-        if(secondsTimer <= 0)
-        {
-            GameOver();
+		Instance.UIManager.UpdateTimeUI(secondsTimer);
+		if (secondsTimer <= 0)
+		{
+			GameOver();
 
 		}
-    }
 
-    public static string GetScoreText()
+		EscapeKeyAction();
+
+	}
+
+	public void EscapeKeyAction()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (SceneManager.GetActiveScene().name == "MainMenu")
+			{
+				SetupMainMenu();
+			}
+			else
+			{
+				if (IsGamePaused)
+				{
+					ResumeGameplay();
+				}
+				else
+				{
+					PauseGameplay();
+				}
+			}
+		}
+	}
+
+	public static string GetScoreText()
     {
         return score.ToString();
     }
@@ -87,6 +115,9 @@ public class GameManager : MonoBehaviour
 
 		secondsTimer = 0;
 		Instance.UIManager.UpdateTimeUI(secondsTimer);
+
+		IsGamePaused = false;
+		Instance.UIManager.HidePauseMenu();
 	}
 
     public void GameOver()
@@ -115,38 +146,69 @@ public class GameManager : MonoBehaviour
 
 		Instance.UIManager.HideUIPanel();
         Instance.UIManager.HideGameOver();
+		Instance.UIManager.HidePauseMenu();
 
 		AudioManager.Instance.PlayBackgroundMusic();
 
-        Resume();
+        ResumeTime();
 	}
 
-    public static void SetupLevel()
-    {
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
-
+	public static void SetupLevel()
+	{
 		ResetPlayerUI();
 
 		Instance.UIManager.ShowUIPanel();
-        Instance.UIManager.HideTitle();
-        Instance.UIManager.HideGameOver();
+		Instance.UIManager.HideTitle();
+		Instance.UIManager.HideGameOver();
 
-        //AudioManager.Instance.PlayAtPoint("LevelMusic");
-        AudioManager.Instance.PlayBackgroundMusic();
+		//AudioManager.Instance.PlayAtPoint("LevelMusic");
+		AudioManager.Instance.PlayBackgroundMusic();
 		//backgroundMusic.Play();
 
-
-		Resume();
+		ResumeGameplay();
 	}
 
-	public static void Pause()
+
+	public static void PauseTime()
 	{
 		Time.timeScale = 0f;
 	}
 
-	public static void Resume()
+	public static void ResumeTime()
 	{
 		Time.timeScale = 1f;
 	}
+
+    public static void PauseGameplay()
+    {
+		PauseTime();
+		Cursor.visible = true;
+		Instance.UIManager.ShowPauseMenu();
+		IsGamePaused = true;
+	}
+
+	public static void ResumeGameplay()
+	{
+		ResumeTime();
+		Cursor.visible = false;
+		Instance.UIManager.HidePauseMenu();
+		IsGamePaused = false;
+	}
+
+	public void PauseOptionsMenuOpen()
+	{
+		Instance.UIManager.ShowPauseOptions();
+	}
+
+	public void PauseOptionsMenuClose()
+	{
+		Instance.UIManager.HidePauseOptions();
+	}
+
+	public static void QuitGame()
+	{
+		Debug.Log("QUIT GAME");
+		Application.Quit();
+	}
+
 }

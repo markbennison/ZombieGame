@@ -178,7 +178,7 @@ public class EnemyController : MonoBehaviour
 
 	protected void AnimationSettings()
 	{
-		float relativeSpeed = rb.velocity.x;
+		float relativeSpeed = rb.linearVelocity.x;
 		if (relativeSpeed < 0)
 		{
 			relativeSpeed *= -1;

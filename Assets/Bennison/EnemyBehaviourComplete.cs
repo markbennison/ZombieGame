@@ -34,12 +34,12 @@ public class EnemyBehaviourComplete : EnemyController
 
     void Move()
     {
-        rb.velocity = new Vector2(moveSpeed * TargetDirectionNormalised(), rb.velocity.y);
-        if (rb.velocity.x > 0)
+        rb.linearVelocity = new Vector2(moveSpeed * TargetDirectionNormalised(), rb.linearVelocity.y);
+        if (rb.linearVelocity.x > 0)
         {
             sr.flipX = false;
         }
-        if (rb.velocity.x < 0)
+        if (rb.linearVelocity.x < 0)
         {
             sr.flipX = true;
         }

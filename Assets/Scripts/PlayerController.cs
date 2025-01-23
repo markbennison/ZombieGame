@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
 	void GroundedCheck()
 	{
-		if (rb.velocity.y == 0)
+		if (rb.linearVelocity.y == 0)
 		{
 			isGrounded = true;
 		}
@@ -99,13 +99,13 @@ public class PlayerController : MonoBehaviour
 
 	void Moving()
 	{
-		rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
-		if (rb.velocity.x > 0)
+		rb.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.linearVelocity.y);
+		if (rb.linearVelocity.x > 0)
 		{
 			sr.flipX = false;
 			attackZone.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
 		}
-		if (rb.velocity.x < 0)
+		if (rb.linearVelocity.x < 0)
 		{
 			sr.flipX = true;
 			attackZone.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 180f, 0f));
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
 	void Crouching()
 	{
-		if (Input.GetKeyDown(KeyCode.C) && rb.velocity.x < 0.1f && isGrounded)
+		if (Input.GetKeyDown(KeyCode.C) && rb.linearVelocity.x < 0.1f && isGrounded)
 		{
 			isCrouched = true;
 		}
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetMouseButton(1)) && isGrounded)
 		{
-			rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+			rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 			animator.SetTrigger(ANIM_TRIG_ONJUMP);
 		}
 	}
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
 
 	void AnimationSettings()
 	{
-		float relativeSpeed = rb.velocity.x;
+		float relativeSpeed = rb.linearVelocity.x;
 		if (relativeSpeed < 0)
 		{
 			relativeSpeed *= -1;
